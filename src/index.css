@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Should be written in tailwind for specific styling */
+/* This file should only include global styles */
+
+html,
+body,
+#root {
+  @apply bg-yellow-300 text-black box-border;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-horizontal {
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-rose-900 rounded-xl;
+}
+
+.task > ::-webkit-scrollbar-thumb {
+  @apply bg-sky-500 rounded-xl;
+}
+
+@layer components {
+
+  .task-view-icons {
+    @apply flex flex-row gap-2 items-center;
+  }
+
+  .task-dashboard-buttons {
+    @apply flex mr-6 p-1 border-2 text-xl font-semibold border-gray-400 rounded hover:bg-red-300 hover:transition-shadow duration-500;
+  }
+
+  .navbar-buttons {
+    @apply flex p-3 hover:bg-red-400 rounded-lg cursor-pointer hover:transition-all duration-300;
+  }
+
+  .icon{
+    @apply m-2 p-0.5 text-4xl hover:bg-yellow-200 ease-in-out duration-500 rounded-lg
+  }
+  .inputCheckBox{
+    @apply accent-yellow-300
+  }
+
+}
+
+
