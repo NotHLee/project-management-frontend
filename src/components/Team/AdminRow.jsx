@@ -84,7 +84,9 @@ export default function AdminRow(props) {
             <FaUserEdit className='text-2xl hover:bg-red-400 rounded  cursor-pointer' onClick={()=>{
                 resetPassword();
             }}/>
+            {_id !== sessionStorage.getItem('sessionToken') &&
             <MemberDeletion memberId={_id} memberName={memberName}/>
+            }
 
         </div>
 

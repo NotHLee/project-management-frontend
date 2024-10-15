@@ -12,7 +12,7 @@ export const MemberDeletionContext = React.createContext()
 
 export default function MemberDeletion(props) {
 
-    const { memberId } = props
+    const { memberId} = props
     const { getTeamMembers } = React.useContext(AdminViewContext)
 
     // use GET api to fetch tasks
@@ -36,12 +36,16 @@ export default function MemberDeletion(props) {
             .catch(error => console.log(error))
     }, [memberId])
 
+    const fetchData = () => {
+        getTasks();
+        getRemainingMembers();
+    };
+
     useEffect(() => {
-        // Function to fetch tasks and remaining members
-        const fetchData = () => {
-            getTasks();
-            getRemainingMembers();
-        };
+        fetchData();
+    }, [])
+
+    useEffect(() => {
 
         // Fetch data initially
         fetchData();
@@ -77,7 +81,7 @@ export default function MemberDeletion(props) {
     }
 
     return (
-        <MemberDeletionContext.Provider value={{open, handleClose, setModal, memberId, updatedTasks, setUpdatedTasks}}>
+        <MemberDeletionContext.Provider value={{open, handleClose, setModal, memberId, updatedTasks, setUpdatedTasks, tasks, removeMember}}>
             <>
             <button onClick={() => setOpen(true)}>
                 <MdDelete className='text-2xl hover:bg-red-400 rounded  ease-in-out duration-500'/>
@@ -98,9 +102,12 @@ export default function MemberDeletion(props) {
                         onClick={e => e.stopPropagation()}
                     >
 
-                        <h1 className='font-bold text-3xl bg-red-300 p-2 rounded'>
-                        Reassign these tasks to another member
-                        </h1>
+                    <button
+                        onClick={() => handleClose()}
+                        className="bg-red-500 text-black font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition duration-200"
+                    >
+                        Cancel
+                    </button>
 
                         <Slider
                             {...sliderSettings}
@@ -134,6 +141,16 @@ export default function MemberDeletion(props) {
         </MemberDeletionContext.Provider>
     )
 
+    function removeMember(memberId) {
+        axios.delete(`${BASE_URL}/api/members?memberId=${memberId}`)
+        .then(response => {
+            console.log(response)
+            getTeamMembers()
+            getRemainingMembers()
+        })
+        .catch(error => console.log(error))
+    }
+
     async function deleteMember() {
 
         handleClose()
@@ -149,17 +166,13 @@ export default function MemberDeletion(props) {
         })
 
         // use DELETE api to delete member
-        axios.delete(`${BASE_URL}/api/members?memberId=${memberId}`)
-        .then(response => console.log(response))
-        .then(() => getTeamMembers())
-        .then(() => getRemainingMembers())
-        .catch(error => console.log(error))
+        removeMember(memberId)
 
         axios.patch(`${BASE_URL}/api/tasks?memberId=${adminId}`, parsedUpdatedTasks)
             .then(response => {
                 console.log(response)
+                getTasks()
             })
-            .then(() => getTasks())
             .catch(error => console.log(error))
     }
 }
