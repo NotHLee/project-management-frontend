@@ -16,12 +16,17 @@ export default function SprintModifyForm(props) {
     const [check, setCheck] = React.useState(false);
     const [valid, setValid] = React.useState(false);
 
+    const [newStartDate, setNewStartDate] = React.useState(startDate);
+    const [newEndDate, setNewEndDate] = React.useState(endDate);
+
     const handleOnChange = () => {
         setCheck(prev => !prev);
     }
 
     const handleClose = () => {
         setOpen(false);
+        setNewStartDate(dayjs().format('YYYY-MM-DD'));
+        setNewEndDate(dayjs().format('YYYY-MM-DD'));
         formRef.current.reset();
     }
 
@@ -113,16 +118,22 @@ export default function SprintModifyForm(props) {
                     <input  type="date"
                             className="p-1 border-2 border-gray-300 rounded w-full"
                             defaultValue={startDate}
-                            onChange={() => handleOnChange()}
+                            onChange={(e) => {
+                                handleOnChange()
+                                setNewStartDate(e.target.value)
+                            }}
                             min={dayjs().format('YYYY-MM-DD')}
-                            max={endDate}
+                            max={newEndDate}
                         required/>
                     <p className="font-bold my-1">End Date:</p>
                     <input  type="date"
                             className="p-1 border-2 border-gray-300 w-full"
                             defaultValue={endDate}
-                            onChange={() => handleOnChange()}
-                            min={startDate}
+                            onChange={(e) => {
+                                handleOnChange()
+                                setNewEndDate(e.target.value)
+                            }}
+                            min={newStartDate}
                         required/>
 
                     {valid && startDate && endDate &&
