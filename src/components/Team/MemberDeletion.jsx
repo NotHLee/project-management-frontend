@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Backdrop, Container} from '@mui/material'
+import { Backdrop, Container, Tooltip} from '@mui/material'
 import Slider from "react-slick";
 import TaskModifyAssignee from './TaskModifyAssignee';
 import axios from 'axios'
@@ -83,9 +83,11 @@ export default function MemberDeletion(props) {
     return (
         <MemberDeletionContext.Provider value={{open, handleClose, setModal, memberId, updatedTasks, setUpdatedTasks, tasks, removeMember}}>
             <>
-            <button onClick={() => setOpen(true)}>
-                <MdDelete className='text-2xl hover:bg-red-400 rounded  ease-in-out duration-500'/>
-            </button>
+            <Tooltip title='Delete member' arrow>
+                <button onClick={() => setOpen(true)}>
+                    <MdDelete className='text-2xl hover:bg-red-400 rounded  ease-in-out duration-500'/>
+                </button>
+            </Tooltip>
 
                 <Backdrop
                     open={open}

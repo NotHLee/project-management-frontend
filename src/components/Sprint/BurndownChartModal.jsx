@@ -5,6 +5,7 @@ import { BsGraphDown } from 'react-icons/bs'
 import { LineChart } from '@mui/x-charts/LineChart';
 import axios from 'axios';
 import BASE_URL from '../../config';
+import { Tooltip } from '@mui/material';
 
 export default function BurndownChartModal({_id}) {
 
@@ -36,13 +37,16 @@ export default function BurndownChartModal({_id}) {
 
     return (
         <>
-        <button onClick={() => {
-            setOpen(true)
-            getBurndownData()
-}
-        }>
-                <BsGraphDown/>
-        </button>
+        <Tooltip title='Show burndown chart' arrow>
+            <button
+            className='text-2xl p-1 rounded hover:ring-2 hover:ring-rose-500 ease-in-out duration-500'
+            onClick={() => {
+                setOpen(true)
+                getBurndownData()
+            }}>
+                    <BsGraphDown/>
+            </button>
+        </Tooltip>
 
         {createPortal(
         <Backdrop

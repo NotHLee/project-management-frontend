@@ -20,6 +20,7 @@ import { Backdrop } from '@mui/material';
 import { createPortal } from 'react-dom';
 import { TaskContext } from '../../pages/TaskDashboard';
 import History from './History';
+import { Tooltip } from '@mui/material';
 
 export default function TaskView(props) {
 
@@ -114,6 +115,7 @@ export default function TaskView(props) {
 
     return (
         <>
+        <Tooltip title='View Task' placement='top' arrow>
         <button
             onClick={() => setOpen(true)}
             className='
@@ -128,6 +130,7 @@ export default function TaskView(props) {
             {taskName}
             </h1>
         </button>
+        </Tooltip>
 
         {createPortal(
             <Backdrop open={open} onClick={() => setOpen(false)}>
@@ -176,17 +179,21 @@ export default function TaskView(props) {
                             <div className='flex gap-x-4 text-center'>
 
                                 {/* Delete button */}
-                                <button onClick={()=>{
-                                    deleteTask(_id);
-                                    setOpen(false)
-                                }}>
-                                    <MdDeleteOutline className='text-3xl border-2 rounded hover:bg-amber-100 ease-in-out duration-500  '/>
-                                </button>
+                                <Tooltip title='Delete Task' placement='top' arrow>
+                                    <button onClick={()=>{
+                                        deleteTask(_id);
+                                        setOpen(false)
+                                    }}>
+                                        <MdDeleteOutline className='text-3xl border-2 rounded hover:bg-amber-100 ease-in-out duration-500  '/>
+                                    </button>
+                                </Tooltip>
 
                                 {/* Edit button */}
-                                <button onClick={() => setEditMode(true)}>
-                                    <CiEdit className='text-3xl border-2 rounded hover:bg-amber-100 ease-in-out duration-500  '/>
-                                </button>
+                                <Tooltip title='Modify Task' placement='top' arrow>
+                                    <button onClick={() => setEditMode(true)}>
+                                        <CiEdit className='text-3xl border-2 rounded hover:bg-amber-100 ease-in-out duration-500  '/>
+                                    </button>
+                                </Tooltip>
 
                             </div>
                         )}
@@ -300,6 +307,7 @@ export default function TaskView(props) {
                         </div>
                     }
 
+                    {!editMode &&
                         <div className='
                             flex
                             flex-col
@@ -310,7 +318,6 @@ export default function TaskView(props) {
                             p-4
                             flex-grow
                         '>
-
                             <div className='flex flex-row justify-between font-semibold'>
                                 <p>Log Time Spent</p>
                                 {sprint && !sprintIsComplete && (status === 'In Progress' || status === 'Completed') &&
@@ -325,19 +332,16 @@ export default function TaskView(props) {
                                 <p className='w-1/2 text-slate-700'>{hours}</p>
                             </div>
 
-                      
-
-
                             <div className=' flex'>
                                 <p className='w-1/2 font-semibold'>Team Total Hours</p>
                                 <p className='w-1/2 text-slate-700'>{totalTime}</p>
                             </div>
-                           
 
                             {toggleLogTime && (
                                 <LogTime closeLogTime={()=>setToggleLogTime(false)} updateLogTime={updateLogTime} taskID={_id}/>)
                             }
                         </div>
+                    }
 
                 </div>
                 {showHistory && <History history={history} setHistory={setShowHistory}/>}

@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import { MdDeleteOutline } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import BurndownChartModal from './BurndownChartModal';
-import { useState } from 'react';
 import { Backdrop } from '@mui/material';
 import SprintForm from './SprintForm';
+import { Tooltip } from '@mui/material';
+import { SprintMenuContext } from '../../pages/SprintMenu';
+import SprintModifyForm from './SprintModifyForm';
 
 function SprintRow({_id, sprintName, startDate, endDate, status, deleteSprint}) {
 
-    const [showSprintForm, setShowSprintForm] = useState(false);
 
     const priorityColour =(name) =>{
 
@@ -33,21 +35,20 @@ function SprintRow({_id, sprintName, startDate, endDate, status, deleteSprint}) 
 
       if (status == "Not Started" ){
         return (
-          <div className='flex gap-2'>
-            <BurndownChartModal _id={_id}/>
-                <button onClick={()=>{
-                deleteSprint(_id);
-                }}>
-            <MdDeleteOutline className='text-3xl border-2 rounded hover:bg-amber-100 ease-in-out duration-500  '/>
-          </button>
+          <div className='flex gap-2 items-center'>
 
-          <button>
-            <FaEdit
-              className='text-3xl border-2 rounded hover:bg-amber-100 ease-in-out duration-500  '
-              onClick={() =>{setShowSprintForm(true)}}
-            />
-          </button>
-        </div>
+            <BurndownChartModal _id={_id}/>
+
+            <Tooltip title='Delete Sprint' arrow>
+            <button onClick={()=>{
+              deleteSprint(_id);
+              }}>
+              <MdDeleteOutline className='text-4xl p-1 rounded hover:ring-2 hover:ring-rose-500 ease-in-out duration-500'/>
+            </button>
+            </Tooltip>
+
+            <SprintModifyForm _id={_id} sprintName={sprintName} startDate={startDate} endDate={endDate}/>
+          </div>
         )
       }
 
@@ -143,15 +144,17 @@ function SprintRow({_id, sprintName, startDate, endDate, status, deleteSprint}) 
               <div className='flex flex-row gap-x-8 text-xl font-bold mb-1 w-full '>
 
                   <div className='w-5/6'>
+                  <Tooltip title='View Sprint' arrow placement='right'>
                     <a href ={renderPage()} >
                     {sprintName}
                     </a>
+                  </Tooltip>
                   </div>
 
                   <div className=' w-1/6 flex justify-end gap-2'>
 
                       {renderButton()}
-                
+
                   </div>
               </div>
 
@@ -185,14 +188,8 @@ function SprintRow({_id, sprintName, startDate, endDate, status, deleteSprint}) 
 
 
     </div>
-    {showSprintForm &&
-      <Backdrop open={showSprintForm}
-      sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}>
-        <SprintForm  _id={_id} modifySprint={true} name={sprintName} DateStart={startDate} DateEnd={endDate} status={status} setShowSprintForm={setShowSprintForm}
-        />
-      </Backdrop>
-    }
-    </>)
+    </>
+    )
 }
 
 export default SprintRow;
@@ -204,5 +201,6 @@ SprintRow.propTypes = {
     endDate: PropTypes.string,
     status: PropTypes.string,
     tasks: PropTypes.array,
-    deleteSprint: PropTypes.func
+    deleteSprint: PropTypes.func,
+    updateSprint: PropTypes.func
 }

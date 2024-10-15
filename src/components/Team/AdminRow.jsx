@@ -9,6 +9,7 @@ import MemberDeletion from './MemberDeletion';
 import { FaUserEdit } from "react-icons/fa";
 import BASE_URL from '../../config';
 import axios from 'axios';
+import { Tooltip } from '@mui/material';
 
 export default function AdminRow(props) {
 
@@ -81,9 +82,17 @@ export default function AdminRow(props) {
 
         <div className='flex flex-row justify-end items-center w-1/12 gap-2 '>
             <BarChartModal timeSpent={timeSpent} dates={dates} className=""/>
-            <FaUserEdit className='text-2xl hover:bg-red-400 rounded  cursor-pointer' onClick={()=>{
-                resetPassword();
-            }}/>
+            <Tooltip title='Reset password' arrow>
+                <button
+                    className='text-2xl hover:bg-red-400 rounded  cursor-pointer'
+                    onClick={(e)=>{
+                        e.preventDefault();
+                        resetPassword();
+                    }}
+                >
+                <FaUserEdit/>
+                </button>
+            </Tooltip>
             {_id !== sessionStorage.getItem('sessionToken') &&
             <MemberDeletion memberId={_id} memberName={memberName}/>
             }

@@ -7,7 +7,7 @@ import { GiSprint } from "react-icons/gi";
 import { FaList } from "react-icons/fa";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
-import { createPortal } from 'react-dom';
+import { Tooltip } from '@mui/material';
 
 export default function Navbar() {
 
@@ -40,16 +40,31 @@ export default function Navbar() {
         {!active&&(
             <div className='p-0.5 items-center flex flex-col fixed bg-primaryColor min-h-screen justify-between'>
                 <div className='flex flex-col h-full space-y-4'>
+
                     <FaList className="icon" onClick=
                     {()=>{
                         setActive(true)
                     }}/>
-                    <a href='/'><MdOutlineTask className="icon"/></a>
-                    <a href='/sprint'><GiSprint className="icon"/></a>
-                    <a href='/team'><RiTeamFill className="icon"/></a>
-                    <a href='/helpCenter'><IoMdHelpCircleOutline className="icon"/></a>
+
+                    <Tooltip title='Task Dashboard' placement='right'>
+                        <a href='/'><MdOutlineTask className="icon"/></a>
+                    </Tooltip>
+
+                    <Tooltip title='Sprint Menu' placement='right'>
+                        <a href='/sprint'><GiSprint className="icon"/></a>
+                    </Tooltip>
+
+                    <Tooltip title='Team Dashboard' placement='right'>
+                        <a href='/team'><RiTeamFill className="icon"/></a>
+                    </Tooltip>
+
+                    <Tooltip title='Help Center' placement='right'>
+                        <a href='/helpCenter'><IoMdHelpCircleOutline className="icon"/></a>
+                    </Tooltip>
                 </div>
-                <a onClick={logOut}><TbLogout className="icon ml-3"/></a>
+                <Tooltip title='Log Out' placement='right'>
+                    <a onClick={logOut}><TbLogout className="icon ml-3"/></a>
+                </Tooltip>
             </div>
         )}
     </div>

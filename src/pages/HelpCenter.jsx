@@ -8,6 +8,11 @@ import SprintCreate from '../assets/SprintCreate.mp4'
 import SprintForceEnd from '../assets/SprintForceEnd.mp4'
 import Create from '../assets/Create.mp4'
 import SprintForceStart from '../assets/SprintForceStart.mp4'
+import AdminGraph from '../assets/AdminGraph.mp4'
+import BurndownString from '../assets/BurndownString.mp4'
+import UserGraph from '../assets/UserGraph.mp4'
+import SprintDelete from '../assets/SprintDelete.mp4'
+import ModifySprint from '../assets/ModifySprint.mp4'
 
 
 function HelpCenter() {
@@ -18,15 +23,13 @@ function HelpCenter() {
         { question: 'How to modify a task that you have already created?', video: Modify },
         { question: 'How to sort your task according to its priority or start date?', video: Sort },
         { question: 'How to create a new sprint?', video: SprintCreate },
-        { question: 'How to delete a sprint?', video: null },
-        { question: 'How to modify a sprint that is NOT STARTED?', video: null },
-        { question: 'How to view your burndown chart?', video: null },
-        { question: 'How to add a task into a sprint that is NOT STARTED?', video: null },
-        { question: 'How to change the status of a task in an active sprint?', video: null },
+        { question: 'How to delete a sprint?', video: SprintDelete },
+        { question: 'How to modify a sprint that is NOT STARTED?', video: ModifySprint },
+        { question: 'How to view your burndown chart?', video: BurndownString },
         { question: 'How to Force Start a sprint?', video: SprintForceStart },
         { question: 'How to Force End a sprint?', video: SprintForceEnd },
-        { question: 'How to view your own average time spent graph?', video: null },
-        { question: 'How to view everyone\'s average time spent graph as an Admin?', video: null },
+        { question: 'How to view your own average time spent graph?', video: UserGraph },
+        { question: 'How to view everyone\'s average time spent graph as an Admin?', video: AdminGraph },
       ]);
   return (
     <div className='flex'>

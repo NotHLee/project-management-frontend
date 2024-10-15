@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 import Card from '../components/common/Card/Card';
-import { DndContext, DragOverlay} from '@dnd-kit/core';
+import { DndContext, DragOverlay, useSensors, useSensor, PointerSensor } from '@dnd-kit/core';
 import { arrayMove} from '@dnd-kit/sortable';
 import { createPortal } from 'react-dom';
 import SprintPlanningBox from '../components/Sprint/SprintPlanningBox';
@@ -37,7 +37,6 @@ export default function SprintPlanning() {
         axios.patch(`${BASE_URL}/api/sprints/tasks`, [task])
         .then((response) => {
             console.log(response.data)
-            getTasks()
         }).catch((error) => {
             console.log(error)
         })
@@ -124,6 +123,14 @@ export default function SprintPlanning() {
         }
     }
 
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 3,
+            },
+        })
+    );
+
   return (
 
     <div className='p-3 h-screen overflow-y-auto '>
@@ -131,7 +138,7 @@ export default function SprintPlanning() {
         Sprint Planning
         <hr className='border-black mt-2'/>
       </div>
-      <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver}>
+      <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver} sensors={sensors}>
         <div className='flex justify-evenly gap-3'>
           <SprintPlanningBox
           title="Product Backlog"

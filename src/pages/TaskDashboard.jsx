@@ -116,10 +116,7 @@ export default function TaskDashboard() {
     function deleteTask(_id){
 
         axios.delete(`${BASE_URL}/api/tasks`, {data: {_id}})
-            .then(response => {console.log(response)})
-            .then(
-                setUpdate(prev => !prev)
-            )
+            .then(() => {setUpdate(prev => !prev)})
             .catch(error => console.log(error))
     }
 

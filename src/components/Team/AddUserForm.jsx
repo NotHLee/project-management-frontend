@@ -6,7 +6,9 @@ import { IoMdPersonAdd } from "react-icons/io";
 import axios from 'axios'
 import BASE_URL from '../../config';
 
-export default function AddUserForm() {
+export default function AddUserForm(props) {
+
+    const { setAlert } = props
 
     const [open, setOpen] = useState(false);
 
@@ -23,10 +25,11 @@ export default function AddUserForm() {
         }
     }, [open])
 
-    function onHandleSubmit(e) {   
+    function onHandleSubmit(e) {
         // e.stopPropagation()
         e.preventDefault()
         addMember(name, password, email)
+        e.target.reset()
     }
 
     return (
@@ -86,7 +89,6 @@ export default function AddUserForm() {
             <button
                 type="submit"
                 className="bg-primaryColor text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-500 transition duration-200"
-            
             >
                 Add Member
             </button>
@@ -108,8 +110,10 @@ export default function AddUserForm() {
         }).then((response) => {
             console.log(response)
             setOpen(false)
+            setAlert('success')
         }).catch((error) => {
             console.log(error)
+            setAlert('error')
         })
 
     }
