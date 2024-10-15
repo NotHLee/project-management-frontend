@@ -19,7 +19,7 @@ export default function App() {
 
 	return(
 		<UserContext.Provider value={{signedIn, setSignedIn}}>
-			<BrowserRouter>
+			<Router>
 				<Routes>
 					<Route path ='/' element={signedIn ? <Navigate to='/taskDashboard'/> : <Login/>}/>
 					<Route path = '/taskDashboard' element={signedIn ? <TaskDashboard/> : <Navigate to='/'/>}/>
@@ -32,7 +32,7 @@ export default function App() {
 					<Route path = '/sprintDashboard/:_id/:status/:sprintName/:startDate/:endDate' element={signedIn ? <SprintDashboard/> : <Navigate to='/'/>}/>
 					<Route path = '/sprintPlanning/:_id/:sprintName/:startDate/:endDate' element={signedIn ? <SprintPlanning/> : <Navigate to='/'/>}/>
 				</Routes>
-			</BrowserRouter>
+			</Router>
 		</UserContext.Provider>
 	)
 }
