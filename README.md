@@ -1,8 +1,9 @@
-# React + Vite
+# Project Management App - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+This repository contains the frontend for the Project Management App, designed as part of **FIT2101: Software Engineering Process and Management** at Monash University Malaysia. The application provides a user interface for managing projects and tasks, viewing progress, and tracking team activities.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
+- **Interactive UI**: Task and project management views with drag-and-drop and sorting.
+- **Integration with Backend**: Connects to the Flask server to retrieve and update data.
+- **Responsive Design**: Optimized for desktop screens of various sizes
